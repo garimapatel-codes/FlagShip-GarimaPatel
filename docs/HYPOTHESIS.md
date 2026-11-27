@@ -133,7 +133,7 @@ We list these up front, so nobody has to find them for us.
 | 24 Nov 2026 | **The brain only sees a "screen"** (`look()` and `tap()`). A test throws if it reads `mode`, `runIndex` or `ghost` (`test/brain.test.js`). | **Honesty.** Shows in code, not just in words, that bots do not know their variant. |
 | 24 Nov 2026 | **The simulator now prints a split check** (chi-square), a **local sanity check** (two-proportion z-test with an approximate chance to beat control), and a skilled-vs-others bored-quit breakdown. It has a `--sensitivity` mode, and live runs get timestamped tags. | **Checking our own pipeline** before spending the one live run. |
 | 24 Nov 2026 | **Offline dry runs done**: 4,500 bots on seeds 42, 1 and 7, plus A/A runs and sensitivity runs. Results below. | Pre-flight test of the new model. **No live Flagsmith run has been done under v1 or v2.** |
-| `<date>` | **v2 frozen** in git commit `<hash>`, pushed to GitHub before the live run. | Final pre-registration. |
+| 27 Nov 2026 | **v2 frozen** in git commit `aeda50c`, pushed to GitHub before the live run. | Final pre-registration. |
 
 ### What the dry runs showed (offline, not the official result)
 
