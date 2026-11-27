@@ -6,7 +6,7 @@ Toggle Wars (WeMakeDevs × Flagsmith) · Track 01: Test Something Real
 
 ![Robot Arena: 12 robot players per version of Level 1, replayed side by side](docs/media/arena.gif)
 
-*The Robot Arena replaying an offline dry run (seed 42). Each lane shows 12 bots, so the counters are a tiny sample; the "Full run" line at the top of each lane is the real comparison.*
+*Robot Arena: replay of the first 12 robots per version from the live Flagsmith run; full-run rates in each lane header.*
 
 **Play it online:** `<TODO: https://<your-user>.github.io/<repo>/>` (add `arena.html` for the Robot Arena)
 **Demo video:** `<TODO: video link>` · **Pre-registration:** [docs/HYPOTHESIS.md](docs/HYPOTHESIS.md) · **Design:** [docs/DESIGN.md](docs/DESIGN.md) · **Code walkthrough:** [docs/WALKTHROUGH.md](docs/WALKTHROUGH.md)
