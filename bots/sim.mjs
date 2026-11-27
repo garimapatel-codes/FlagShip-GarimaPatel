@@ -143,9 +143,17 @@ function summarise(results) {
 function splitCheck(results) {
   const counts = {};
   for (const r of results) counts[r.arm] = (counts[r.arm] || 0) + 1;
+  // In live runs the arms are the variant keys (control, gentle_ramp, practice_first).
+  // A bot whose Flagsmith call failed falls back to 'normal' and was never enrolled,
+  // so it is left out of the split check (it is reported as a fallback instead).
+  if (counts.control !== undefined && counts.normal !== undefined) {
+    console.log(`split check: leaving out ${counts.normal} fallback bots (not enrolled by Flagsmith)`);
+    delete counts.normal;
+  }
   const arms = Object.keys(counts).sort((a, b) => order(a) - order(b));
   assert.equal(arms.length, 3, 'split check expects exactly 3 arms');
-  const expected = results.length / 3;
+  const n = arms.reduce((s, a) => s + counts[a], 0);
+  const expected = n / 3;
   // chi-square statistic = sum of (observed - expected)^2 / expected
   const chi2 = arms.reduce((s, a) => s + (counts[a] - expected) ** 2 / expected, 0);
   const p = Math.exp(-chi2 / 2); // exact p-value for chi-square with df = 2 (3 arms)
@@ -188,10 +196,10 @@ await client.close(); // flush every event before we exit
 
 mkdirSync('runs', { recursive: true });
 writeFileSync(file, JSON.stringify({ tag, seed, aa, dryRun, createdAt: new Date().toISOString(), bots: results }));
-summarise(results);
-splitCheck(results);
 const st = client.stats || {};
+summarise(results);
 console.log(`flags: exposures=${st.exposures} events=${st.events} fallbacks=${st.fallbacks}`);
+splitCheck(results);
 if (st.fallbacks > 0) {
   console.log(`\n!!! WARNING: ${st.fallbacks} bots fell back to 'normal' because Flagsmith failed.\n` +
     '!!! These bots did not get a real assignment: this run is NOT a valid experiment.\n');
