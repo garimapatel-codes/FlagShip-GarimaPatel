@@ -35,8 +35,12 @@ async function start() {
   mode = getLevelMode();                  // records the exposure when online
   $('offline').hidden = isOnline();
   // ?debug in the address bar shows which Level 1 this player got (for demos only).
+  // It shows a coloured diamond instead of the version name, so a player looking over
+  // your shoulder learns nothing:  blue = normal, green = gentle_ramp, purple = practice_first.
   if (new URLSearchParams(location.search).has('debug')) {
-    $('mode').textContent = `mode: ${mode}`;
+    const DIAMOND_COLOURS = { normal: '#2f6fdb', gentle_ramp: '#1f9d55', practice_first: '#8a3fd1' };
+    $('mode').textContent = '\u2666'; // the ♦ character
+    $('mode').style.color = DIAMOND_COLOURS[mode] || '#2a1a1f';
     $('mode').hidden = false;
   }
   game = createGame({ mode, seed: Date.now() % 1e9, runIndex });

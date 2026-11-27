@@ -307,3 +307,5 @@ Run them with `npm test`.
 
 - [ ] Every quoted line still matches the code.
 - [ ] Each team member can answer every judge question above without notes.
+
+**Debug diamond.** With `?debug` in the address, the game shows a coloured ♦ instead of the version name: blue = normal, green = gentle_ramp, purple = practice_first (`web/src/main.js`, `start()`).
