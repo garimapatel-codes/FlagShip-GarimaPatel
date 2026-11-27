@@ -1,0 +1,192 @@
+{
+  "results": {
+    "as_of": "2026-11-27T07:44:24.566087Z",
+    "last_error_at": null,
+    "refresh_requested_at": "2026-11-27T07:44:24.508778Z",
+    "payload": {
+      "metrics": [
+        {
+          "variants": {
+            "control": {
+              "n": 463,
+              "sum": 207,
+              "sum_squares": 207
+            },
+            "gentle_ramp": {
+              "n": 490,
+              "sum": 206,
+              "sum_squares": 206
+            },
+            "practice_first": {
+              "n": 481,
+              "sum": 198,
+              "sum_squares": 198
+            }
+          },
+          "inference": {
+            "gentle_ramp": {
+              "lift": -0.05966676525682744,
+              "ci_low": -0.19630124035191712,
+              "ci_high": 0.07696770983826226,
+              "chance_to_win": 0.19602803789486578
+            },
+            "practice_first": {
+              "lift": -0.07927325318629666,
+              "ci_low": -0.21497282686699506,
+              "ci_high": 0.056426320494401744,
+              "chance_to_win": 0.12610960139734517
+            }
+          },
+          "metric_id": 1144,
+          "conversions_timeseries": {
+            "points": [
+              {
+                "bucket": "2026-11-27T07:00:00+00:00",
+                "converted_identities": {
+                  "control": 207,
+                  "gentle_ramp": 206,
+                  "practice_first": 198
+                }
+              }
+            ],
+            "granularity": "hour"
+          }
+        },
+        {
+          "variants": {
+            "control": {
+              "n": 463,
+              "sum": 238,
+              "sum_squares": 238
+            },
+            "gentle_ramp": {
+              "n": 490,
+              "sum": 260,
+              "sum_squares": 260
+            },
+            "practice_first": {
+              "n": 481,
+              "sum": 256,
+              "sum_squares": 256
+            }
+          },
+          "inference": {
+            "gentle_ramp": {
+              "lift": 0.03224146801577775,
+              "ci_low": -0.09337848344535861,
+              "ci_high": 0.15786141947691412,
+              "chance_to_win": 0.30746735913805734
+            },
+            "practice_first": {
+              "lift": 0.035377976554447146,
+              "ci_low": -0.09098308629433903,
+              "ci_high": 0.1617390394032333,
+              "chance_to_win": 0.29159142895533463
+            }
+          },
+          "metric_id": 1145,
+          "conversions_timeseries": {
+            "points": [
+              {
+                "bucket": "2026-11-27T07:00:00+00:00",
+                "converted_identities": {
+                  "control": 238,
+                  "gentle_ramp": 260,
+                  "practice_first": 256
+                }
+              }
+            ],
+            "granularity": "hour"
+          }
+        },
+        {
+          "variants": {
+            "control": {
+              "n": 463,
+              "sum": 6,
+              "sum_squares": 6
+            },
+            "gentle_ramp": {
+              "n": 490,
+              "sum": 3,
+              "sum_squares": 3
+            },
+            "practice_first": {
+              "n": 481,
+              "sum": 3,
+              "sum_squares": 3
+            }
+          },
+          "inference": {
+            "gentle_ramp": null,
+            "practice_first": null
+          },
+          "metric_id": 1146,
+          "conversions_timeseries": {
+            "points": [
+              {
+                "bucket": "2026-11-27T07:00:00+00:00",
+                "converted_identities": {
+                  "control": 6,
+                  "gentle_ramp": 3,
+                  "practice_first": 3
+                }
+              }
+            ],
+            "granularity": "hour"
+          }
+        },
+        {
+          "variants": {
+            "control": {
+              "n": 463,
+              "sum": 4795,
+              "sum_squares": 88153
+            },
+            "gentle_ramp": {
+              "n": 490,
+              "sum": 4887,
+              "sum_squares": 88913
+            },
+            "practice_first": {
+              "n": 481,
+              "sum": 4766,
+              "sum_squares": 86570
+            }
+          },
+          "inference": {
+            "gentle_ramp": {
+              "lift": -0.036972611776723126,
+              "ci_low": -0.14643749752022556,
+              "ci_high": 0.07249227396677932,
+              "chance_to_win": 0.2539878557189339
+            },
+            "practice_first": {
+              "lift": -0.04324367682031905,
+              "ci_low": -0.15280543159625604,
+              "ci_high": 0.06631807795561792,
+              "chance_to_win": 0.21958618147098363
+            }
+          },
+          "metric_id": 1147,
+          "conversions_timeseries": null
+        }
+      ],
+      "srm_p_value": null,
+      "exposures_timeseries": {
+        "points": [
+          {
+            "bucket": "2026-11-27T07:00:00+00:00",
+            "new_identities": {
+              "control": 463,
+              "gentle_ramp": 490,
+              "practice_first": 481
+            }
+          }
+        ],
+        "granularity": "hour"
+      }
+    },
+    "is_final": false
+  }
+}
