@@ -1,24 +1,24 @@
 {
   "results": {
-    "as_of": "2026-11-27T17:35:12.359699Z",
+    "as_of": "2026-11-27T18:05:34.633417Z",
     "last_error_at": null,
-    "refresh_requested_at": "2026-11-27T17:35:12.307220Z",
+    "refresh_requested_at": "2026-11-27T18:05:34.585528Z",
     "payload": {
       "metrics": [
         {
           "variants": {
             "control": {
-              "n": 4,
+              "n": 5,
               "sum": 0,
               "sum_squares": 0
             },
             "gentle_ramp": {
-              "n": 1,
+              "n": 2,
               "sum": 0,
               "sum_squares": 0
             },
             "practice_first": {
-              "n": 1,
+              "n": 2,
               "sum": 0,
               "sum_squares": 0
             }
@@ -36,17 +36,17 @@
         {
           "variants": {
             "control": {
-              "n": 4,
+              "n": 5,
               "sum": 0,
               "sum_squares": 0
             },
             "gentle_ramp": {
-              "n": 1,
+              "n": 2,
               "sum": 0,
               "sum_squares": 0
             },
             "practice_first": {
-              "n": 1,
+              "n": 2,
               "sum": 0,
               "sum_squares": 0
             }
@@ -64,17 +64,17 @@
         {
           "variants": {
             "control": {
-              "n": 4,
+              "n": 5,
               "sum": 0,
               "sum_squares": 0
             },
             "gentle_ramp": {
-              "n": 1,
+              "n": 2,
               "sum": 0,
               "sum_squares": 0
             },
             "practice_first": {
-              "n": 1,
+              "n": 2,
               "sum": 0,
               "sum_squares": 0
             }
@@ -92,19 +92,19 @@
         {
           "variants": {
             "control": {
-              "n": 4,
+              "n": 5,
               "sum": 0,
               "sum_squares": 0
             },
             "gentle_ramp": {
-              "n": 1,
+              "n": 2,
               "sum": 0,
               "sum_squares": 0
             },
             "practice_first": {
-              "n": 1,
-              "sum": 1,
-              "sum_squares": 1
+              "n": 2,
+              "sum": 3,
+              "sum_squares": 5
             }
           },
           "inference": {
@@ -121,9 +121,9 @@
           {
             "bucket": "2026-11-27T17:00:00+00:00",
             "new_identities": {
-              "control": 4,
-              "gentle_ramp": 1,
-              "practice_first": 1
+              "control": 5,
+              "gentle_ramp": 2,
+              "practice_first": 2
             }
           }
         ],
