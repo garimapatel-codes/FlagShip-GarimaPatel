@@ -3,23 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-  <title>Level Up: Jumpy</title>
+  <title>Level Up — Kite Fight</title>
   <link rel="stylesheet" href="./src/style.css" />
 </head>
 <body class="game-page">
   <header class="top">
-    <h1>Jumpy <span class="sub">Level Up experiment</span></h1>
+    <h1>Level Up <span class="dash">—</span> Kite Fight <span class="sub">a Flagsmith experiment</span></h1>
     <nav><a href="./arena.html">Robot Arena &rarr;</a></nav>
   </header>
   <main class="stage">
     <div class="hud">
-      <span>Level <b id="level">1</b></span>
-      <span>Walls <b id="walls">0</b></span>
-      <span>Best <b id="best">0</b></span>
       <span id="offline" class="badge" hidden>offline</span>
       <span id="mode" class="badge mode" hidden></span>
     </div>
-    <canvas id="game" width="400" height="600"></canvas>
+    <canvas id="game" width="400" height="600" aria-label="Kite Fight game: tap to fly up between the kite-string poles"></canvas>
     <p id="message" class="message">Tap, click or press Space to start</p>
   </main>
   <script type="module" src="./src/main.js"></script>

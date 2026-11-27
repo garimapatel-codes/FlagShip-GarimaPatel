@@ -1,0 +1,135 @@
+{
+  "results": {
+    "as_of": "2026-11-27T17:35:12.359699Z",
+    "last_error_at": null,
+    "refresh_requested_at": "2026-11-27T17:35:12.307220Z",
+    "payload": {
+      "metrics": [
+        {
+          "variants": {
+            "control": {
+              "n": 4,
+              "sum": 0,
+              "sum_squares": 0
+            },
+            "gentle_ramp": {
+              "n": 1,
+              "sum": 0,
+              "sum_squares": 0
+            },
+            "practice_first": {
+              "n": 1,
+              "sum": 0,
+              "sum_squares": 0
+            }
+          },
+          "inference": {
+            "gentle_ramp": null,
+            "practice_first": null
+          },
+          "metric_id": 1144,
+          "conversions_timeseries": {
+            "points": [],
+            "granularity": "hour"
+          }
+        },
+        {
+          "variants": {
+            "control": {
+              "n": 4,
+              "sum": 0,
+              "sum_squares": 0
+            },
+            "gentle_ramp": {
+              "n": 1,
+              "sum": 0,
+              "sum_squares": 0
+            },
+            "practice_first": {
+              "n": 1,
+              "sum": 0,
+              "sum_squares": 0
+            }
+          },
+          "inference": {
+            "gentle_ramp": null,
+            "practice_first": null
+          },
+          "metric_id": 1145,
+          "conversions_timeseries": {
+            "points": [],
+            "granularity": "hour"
+          }
+        },
+        {
+          "variants": {
+            "control": {
+              "n": 4,
+              "sum": 0,
+              "sum_squares": 0
+            },
+            "gentle_ramp": {
+              "n": 1,
+              "sum": 0,
+              "sum_squares": 0
+            },
+            "practice_first": {
+              "n": 1,
+              "sum": 0,
+              "sum_squares": 0
+            }
+          },
+          "inference": {
+            "gentle_ramp": null,
+            "practice_first": null
+          },
+          "metric_id": 1146,
+          "conversions_timeseries": {
+            "points": [],
+            "granularity": "hour"
+          }
+        },
+        {
+          "variants": {
+            "control": {
+              "n": 4,
+              "sum": 0,
+              "sum_squares": 0
+            },
+            "gentle_ramp": {
+              "n": 1,
+              "sum": 0,
+              "sum_squares": 0
+            },
+            "practice_first": {
+              "n": 1,
+              "sum": 1,
+              "sum_squares": 1
+            }
+          },
+          "inference": {
+            "gentle_ramp": null,
+            "practice_first": null
+          },
+          "metric_id": 1147,
+          "conversions_timeseries": null
+        }
+      ],
+      "srm_p_value": null,
+      "exposures_timeseries": {
+        "points": [
+          {
+            "bucket": "2026-11-27T17:00:00+00:00",
+            "new_identities": {
+              "control": 4,
+              "gentle_ramp": 1,
+              "practice_first": 1
+            }
+          }
+        ],
+        "granularity": "hour"
+      }
+    },
+    "is_final": false
+  }
+}

@@ -7,9 +7,9 @@ import { drawGame } from './draw.js';
 
 const PER_LANE = 12;
 const LANES = {
-  normal: { color: '#7aa2ff', title: 'normal', note: 'Full difficulty from wall 1' },
-  gentle_ramp: { color: '#3ddc97', title: 'gentle_ramp', note: 'Wide, slow walls easing to normal by wall 10' },
-  practice_first: { color: '#c08cff', title: 'practice_first', note: '10 s of harmless ghost walls first' },
+  normal: { color: '#d6247f', title: 'normal', note: 'Full difficulty from wall 1' },
+  gentle_ramp: { color: '#e8590c', title: 'gentle_ramp', note: 'Wide, slow walls easing to normal by wall 10' },
+  practice_first: { color: '#7b3fa0', title: 'practice_first', note: '10 s of harmless ghost walls first' },
 };
 const OUTCOME = { level3: ['LEVEL 3', 'ok'], rage: ['RAGE QUIT', 'bad'], bored: ['BORED QUIT', 'meh'], cap: ['GAVE UP', 'meh'] };
 const $ = (id) => document.getElementById(id);
@@ -64,7 +64,7 @@ function setup(data, label) {
     for (const bot of bots.slice(0, PER_LANE)) {
       const tile = document.createElement('div');
       tile.className = 'tile';
-      tile.innerHTML = `<canvas width="120" height="180"></canvas><div class="cap"></div><div class="stamp"></div>`;
+      tile.innerHTML = `<canvas width="240" height="360"></canvas><div class="cap"></div><div class="stamp"></div>`;
       lane.querySelector('.grid').appendChild(tile);
       const p = { bot, mode, tile, ctx: tile.querySelector('canvas').getContext('2d'), run: -1, game: null, flaps: null, done: false };
       nextRun(p);
@@ -110,7 +110,7 @@ function loop() {
   for (let i = 0; i < speed; i++) players.forEach(tick);
   for (const p of players) {
     if (!p.game) continue;
-    drawGame(p.ctx, p.game, { color: LANES[p.mode].color, dim: p.done });
+    drawGame(p.ctx, p.game, { dim: p.done }); // the same kite art in every lane
     p.tile.querySelector('.cap').textContent = `#${p.bot.n} · try ${Math.min(p.run + 1, p.bot.runs.length)} · ${p.game.wallsPassed} walls`;
   }
   requestAnimationFrame(loop);

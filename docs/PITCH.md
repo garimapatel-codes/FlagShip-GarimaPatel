@@ -36,7 +36,7 @@ Knowing *that* players leave is the easy part. The hard part is knowing *which f
 
 ## 3. What we built
 
-- **Jumpy**: a small Flappy-Bird-style canvas game that humans can play in the browser.
+- **Kite Fight**: a small tap-to-fly canvas game with our own pixel-art kites that humans can play in the browser.
 - **One Flagsmith flag, `level1_mode`**, with three values:
   - `normal` (control);
   - `gentle_ramp`: wider, slower walls easing to normal by wall 10;

@@ -1,5 +1,5 @@
 // The human-playable game. Same engine as the robots; Flagsmith decides Level 1.
-import { createGame, step, level } from '../../engine/game.js';
+import { createGame, step } from '../../engine/game.js';
 import { DT, EVENTS, LEVEL_3_AT } from '../../engine/constants.js';
 import { initFlags, getLevelMode, track, flush, isOnline, getOrCreatePlayerId } from './flags.js';
 import { drawGame } from './draw.js';
@@ -18,6 +18,16 @@ let reachedL3 = false;     // send reached_level_3 only once
 let wallsSent = false;     // send walls_passed only once
 let flapQueued = false;    // a tap waiting for the next physics step
 let overAt = 0;            // time of the last crash (to ignore panic taps)
+let bestBefore = 0;        // best score before this try (drawing only: shows "NEW BEST!")
+
+// ---- Crisp pixels on every screen: match the canvas to its on-screen size ----
+// The canvas keeps the game's 2:3 shape; drawGame scales the 400 x 600 world to fit.
+function fitCanvas() {
+  const ratio = window.devicePixelRatio || 1;
+  const w = Math.round(canvas.clientWidth * ratio); // on-screen width (without the border) in real pixels
+  if (w > 0 && canvas.width !== w) { canvas.width = w; canvas.height = Math.round(w * 1.5); }
+}
+window.addEventListener('resize', fitCanvas);
 
 // ---- Start-up: ask Flagsmith which Level 1 this player gets ----
 async function start() {
@@ -36,14 +46,15 @@ async function start() {
 // ---- Input: one handler for keyboard, mouse and touch ----
 function tap(e) {
   if (e) e.preventDefault();
-  if (phase === 'ready') { phase = 'playing'; $('message').textContent = ''; }
+  if (phase === 'ready') { phase = 'playing'; $('message').textContent = 'Tap, click or press Space to fly up'; }
   if (phase === 'playing') { flapQueued = true; return; }
   if (phase === 'over' && performance.now() - overAt > 400) {
     runIndex += 1; // a retry is a new run in the same session
+    bestBefore = best;
     game = createGame({ mode, seed: Date.now() % 1e9, runIndex });
     phase = 'playing';
     flapQueued = true;
-    $('message').textContent = '';
+    $('message').textContent = 'Tap, click or press Space to fly up';
   }
 }
 window.addEventListener('keydown', (e) => { if (e.code === 'Space' || e.code === 'ArrowUp') tap(e); });
@@ -78,13 +89,16 @@ function loop(now) {
     if (game.over) {
       phase = 'over';
       overAt = performance.now();
-      $('message').textContent = `Crashed after ${game.wallsPassed} walls. Tap to try again`;
+      $('message').textContent = `Kite down after ${game.wallsPassed} walls. Tap to try again`;
     }
   }
-  drawGame(ctx, game);
-  $('level').textContent = level(game);
-  $('walls').textContent = game.wallsPassed;
-  $('best').textContent = best;
+  fitCanvas();
+  drawGame(ctx, game, {
+    t: now / DT, // animation clock: keeps clouds and the tail moving on every screen
+    ui: { phase, best, newBest: phase === 'over' && best > bestBefore, canRetry: now - overAt > 400 },
+  });
+  canvas.dataset.phase = phase;             // handy for screenshots and tests
+  canvas.dataset.score = game.wallsPassed;
   requestAnimationFrame(loop);
 }
 

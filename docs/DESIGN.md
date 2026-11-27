@@ -6,9 +6,9 @@ This page describes what we built and why. The hypothesis and decision rule live
 
 ---
 
-## 1. The game: "Jumpy"
+## 1. The game: "Kite Fight"
 
-Jumpy is a Flappy-Bird-style canvas game. A small character falls with gravity. A tap, click or Space makes it flap upward. Walls with a gap scroll in from the right. Touching a wall, the floor or the ceiling is a crash. Passing a wall scores one point.
+Kite Fight is a tap-to-fly canvas game with our own pixel-art kite theme. The player's kite falls with gravity. A tap, click or Space makes it rise. Walls with a gap scroll in from the right. Touching a wall, the floor or the ceiling is a crash. Passing a wall scores one point.
 
 - **Level 1** = walls 1–10, **Level 2** = walls 11–20, **Level 3** = wall 21 onward.
 - **"Reached Level 3"** = passed 20 walls in one try.

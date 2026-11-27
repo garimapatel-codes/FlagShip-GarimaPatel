@@ -27,7 +27,7 @@ Toggle Wars (WeMakeDevs × Flagsmith) · Track 01: Test Something Real
 
 | The game (`?debug` shows your version) | The Robot Arena |
 | --- | --- |
-| <img src="docs/media/game.png" alt="Jumpy game page with the OFFLINE badge and the debug badge 'mode: normal'" width="300"> | <img src="docs/media/arena.png" alt="Robot Arena with three lanes: normal, gentle_ramp and practice_first" width="520"> |
+| <img src="docs/media/game.png" alt="Kite Fight game page with the OFFLINE badge and the debug badge 'mode: normal'" width="300"> | <img src="docs/media/arena.png" alt="Robot Arena with three lanes: normal, gentle_ramp and practice_first" width="520"> |
 
 The screenshots are from the offline build (no Flagsmith key), so everyone plays `normal` and the yellow **OFFLINE** badge shows. With a client key, the badge goes away and `?debug` shows the version Flagsmith picked.
 

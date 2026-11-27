@@ -1,0 +1,108 @@
+{
+  "experiment": {
+    "id": 1465,
+    "feature": {
+      "id": 306680,
+      "name": "level1_mode",
+      "type": "MULTIVARIATE",
+      "initial_value": "normal",
+      "multivariate_options": [
+        {
+          "id": 37860,
+          "uuid": "c58eb6b7-c9f5-4a20-8ed3-44b0695fff0b",
+          "type": "unicode",
+          "integer_value": null,
+          "string_value": "practice_first",
+          "boolean_value": null,
+          "default_percentage_allocation": 0,
+          "key": "practice_first"
+        },
+        {
+          "id": 37859,
+          "uuid": "1294c778-6d82-4b07-9044-43ef7ce7f98a",
+          "type": "unicode",
+          "integer_value": null,
+          "string_value": "gentle_ramp",
+          "boolean_value": null,
+          "default_percentage_allocation": 0,
+          "key": "gentle_ramp"
+        }
+      ]
+    },
+    "name": "Level 1 real players",
+    "hypothesis": "Exploratory (real human players, small sample): practice_first will raise the share of players who reach Level 3 versus normal. Expected to be inconclusive at this sample size; the robot run in Production is the primary result (docs/HYPOTHESIS.md, Part 5).",
+    "status": "running",
+    "metrics": [
+      {
+        "id": 1815,
+        "metric": 1144,
+        "metric_name": "Reached Level 3",
+        "aggregation": "occurrence",
+        "direction": "up",
+        "expected_direction": "increase",
+        "created_at": "2026-11-27T17:07:51.927205Z"
+      },
+      {
+        "id": 1816,
+        "metric": 1145,
+        "metric_name": "Rage quit",
+        "aggregation": "occurrence",
+        "direction": "down",
+        "expected_direction": "not_increase",
+        "created_at": "2026-11-27T17:07:51.927237Z"
+      },
+      {
+        "id": 1817,
+        "metric": 1146,
+        "metric_name": "Bored quit",
+        "aggregation": "occurrence",
+        "direction": "down",
+        "expected_direction": "not_increase",
+        "created_at": "2026-11-27T17:07:51.927257Z"
+      },
+      {
+        "id": 1818,
+        "metric": 1147,
+        "metric_name": "Walls passed (best run)",
+        "aggregation": "mean",
+        "direction": "up",
+        "expected_direction": "increase",
+        "created_at": "2026-11-27T17:07:51.927275Z"
+      }
+    ],
+    "experiment_rollout": {
+      "enabled": true,
+      "rollout_percentage": 100,
+      "feature_state_value": {
+        "type": "string",
+        "value": "normal"
+      },
+      "multivariate_feature_state_values": [
+        {
+          "multivariate_feature_option": 37860,
+          "percentage_allocation": 33.33
+        },
+        {
+          "multivariate_feature_option": 37859,
+          "percentage_allocation": 33.33
+        }
+      ],
+      "audience": {
+        "match": "any",
+        "segments": []
+      }
+    },
+    "created_at": "2026-11-27T17:07:51.918232Z",
+    "updated_at": "2026-11-27T17:07:53.592153Z",
+    "started_at": "2026-11-27T17:07:53.572489Z",
+    "ended_at": null,
+    "rollout_decision": null,
+    "rollout_variant": null
+  },
+  "eventById": {
+    "1144": "reached_level_3",
+    "1145": "rage_quit",
+    "1146": "bored_quit",
+    "1147": "walls_passed"
+  }
+}
