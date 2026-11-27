@@ -127,25 +127,29 @@ flowchart LR
 
 ### Live Flagsmith results (official)
 
-> To fill in after the one live run. Copy the numbers from the Flagsmith results page on `<date, time>`. Evidence goes in `docs/results/`: screenshots plus `results-final.json` and `exposures-final.json`.
+One live run on 27 Nov 2026: 4,500 fresh robot identities (`--seed 2026`), Flagsmith Cloud, experiment "Level 1 difficulty". Results as of 2026-11-27 13:12 UTC. Evidence: [`docs/results/`](docs/results/) (`results-final.json`, `exposures-final.json`, `experiment-final.json`).
 
-**Health:** A/A check `<pass / fail>` · Split check `<PASS, chi² = , p = >` · Fallbacks `<0>` · Exposures per arm `<n / n / n>` · Flagsmith SRM warning `<none / shown / not computed>`
+**Health:** A/A check passed (no winner; [results-aa.json](docs/results/results-aa.json)) · Split check PASS (chi² = 1.60, p = 0.449) · Fallbacks 0 · Exposures per arm 1,479 / 1,481 / 1,540 · Flagsmith SRM: not computed in this set-up, so we rely on our split check.
 
 | Metric | Variant | Rate / mean | Lift vs `normal` | 95% credible interval | Chance to beat control | Verdict |
 | --- | --- | --- | --- | --- | --- | --- |
-| `reached_level_3` | `normal` | | | | | control |
-| `reached_level_3` | `practice_first` | | | | | |
-| `reached_level_3` | `gentle_ramp` | | | | | |
-| `bored_quit` | `practice_first` | (± pts) | | | | |
-| `bored_quit` | `gentle_ramp` | (± pts) | | | | |
-| `rage_quit` | `practice_first` | | | | | |
-| `rage_quit` | `gentle_ramp` | | | | | |
-| `walls_passed` | `practice_first` | | | | | |
-| `walls_passed` | `gentle_ramp` | | | | | |
+| `reached_level_3` | `normal` | 43.1% | | | | control |
+| `reached_level_3` | `practice_first` | **55.2%** | **+28.0%** | [+18.5%, +37.4%] | **> 99.9%** | beats control |
+| `reached_level_3` | `gentle_ramp` | 44.6% | +3.5% | [−5.0%, +11.9%] | 79.0% | inconclusive |
+| `bored_quit` | `practice_first` | 1.5% (+0.1 pts) | +10.4% | [−55.3%, +76.2%] | 37.8%\* | passes (≤ 2 pts) |
+| `bored_quit` | `gentle_ramp` | 9.5% (**+8.1 pts**) | +599% | [+275%, +923%] | < 0.1%\* | **fails guardrail** |
+| `rage_quit` | `practice_first` | 36.2% (−16.6 pts) | −31.4% | [−37.0%, −25.8%] | > 99.9%\* | passes |
+| `rage_quit` | `gentle_ramp` | 41.8% (−10.9 pts) | −20.7% | [−26.9%, −14.6%] | > 99.9%\* | passes |
+| `walls_passed` | `practice_first` | 13.15 (normal 10.02) | +31.3% | [+23.8%, +38.7%] | > 99.9% | beats control |
+| `walls_passed` | `gentle_ramp` | 11.18 | +11.6% | [+4.8%, +18.4%] | > 99.9% | beats control |
 
-**Decision:** `<Ship practice_first / Ship gentle_ramp / Keep normal>`, because `<one sentence applying the v2 rule>`.
-**H1** (practice_first, at least +10%): `<confirmed / partly / rejected>`. **H2** (gentle_ramp fails bored-quit): `<confirmed / rejected>`.
-**Next test:** `<e.g. an adaptive first try: practice for beginners, skipped for players who clear the first walls cleanly>`.
+\* For `rage_quit` and `bored_quit`, lower is better: "chance to beat control" is the chance the variant is lower.
+
+Bored quits among skilled robots (`aimNoise` < 10 px): `normal` 5.3%, `practice_first` 5.5%, `gentle_ramp` **30.2%**.
+
+**Decision:** Ship `practice_first`. It clears every line of the v2 rule written before the run: > 95% chance to beat control on `reached_level_3`, bored quits up only 0.1 points, rage quits down, split check passed.
+**H1** (practice_first, at least +10%): **confirmed** (+28.0%, whole interval above +10%). **H2** (gentle_ramp fails the bored-quit guardrail): **confirmed** (+8.1 points against a 2-point limit).
+**Next test:** an adaptive first try — practice zone for players who crash early, skipped for players who clear the first walls cleanly.
 
 ## Is the traffic real?
 

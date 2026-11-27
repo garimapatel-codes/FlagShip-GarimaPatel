@@ -1,0 +1,108 @@
+{
+  "experiment": {
+    "id": 1084,
+    "feature": {
+      "id": 306680,
+      "name": "level1_mode",
+      "type": "MULTIVARIATE",
+      "initial_value": "normal",
+      "multivariate_options": [
+        {
+          "id": 37860,
+          "uuid": "c58eb6b7-c9f5-4a20-8ed3-44b0695fff0b",
+          "type": "unicode",
+          "integer_value": null,
+          "string_value": "practice_first",
+          "boolean_value": null,
+          "default_percentage_allocation": 0,
+          "key": "practice_first"
+        },
+        {
+          "id": 37859,
+          "uuid": "1294c778-6d82-4b07-9044-43ef7ce7f98a",
+          "type": "unicode",
+          "integer_value": null,
+          "string_value": "gentle_ramp",
+          "boolean_value": null,
+          "default_percentage_allocation": 0,
+          "key": "gentle_ramp"
+        }
+      ]
+    },
+    "name": "Level 1 difficulty",
+    "hypothesis": "A 10-second practice zone on the first try (practice_first) will increase the share of players who reach Level 3, compared with normal, by at least 10% relative. It will do this without raising bored quits by more than 2 percentage points and without raising rage quits.",
+    "status": "running",
+    "metrics": [
+      {
+        "id": 1295,
+        "metric": 1140,
+        "metric_name": "Reached Level 3",
+        "aggregation": "occurrence",
+        "direction": "up",
+        "expected_direction": "increase",
+        "created_at": "2026-11-27T07:41:34.104901Z"
+      },
+      {
+        "id": 1296,
+        "metric": 1141,
+        "metric_name": "Rage quit",
+        "aggregation": "occurrence",
+        "direction": "down",
+        "expected_direction": "not_increase",
+        "created_at": "2026-11-27T07:41:34.104912Z"
+      },
+      {
+        "id": 1297,
+        "metric": 1142,
+        "metric_name": "Bored quit",
+        "aggregation": "occurrence",
+        "direction": "down",
+        "expected_direction": "not_increase",
+        "created_at": "2026-11-27T07:41:34.104919Z"
+      },
+      {
+        "id": 1298,
+        "metric": 1143,
+        "metric_name": "Walls passed (best run)",
+        "aggregation": "mean",
+        "direction": "up",
+        "expected_direction": "increase",
+        "created_at": "2026-11-27T07:41:34.104926Z"
+      }
+    ],
+    "experiment_rollout": {
+      "enabled": true,
+      "rollout_percentage": 100,
+      "feature_state_value": {
+        "type": "string",
+        "value": "normal"
+      },
+      "multivariate_feature_state_values": [
+        {
+          "multivariate_feature_option": 37860,
+          "percentage_allocation": 33.33
+        },
+        {
+          "multivariate_feature_option": 37859,
+          "percentage_allocation": 33.33
+        }
+      ],
+      "audience": {
+        "match": "any",
+        "segments": []
+      }
+    },
+    "created_at": "2026-11-27T07:41:34.102979Z",
+    "updated_at": "2026-11-27T07:47:45.294846Z",
+    "started_at": "2026-11-27T07:47:45.292377Z",
+    "ended_at": null,
+    "rollout_decision": null,
+    "rollout_variant": null
+  },
+  "eventById": {
+    "1140": "reached_level_3",
+    "1141": "rage_quit",
+    "1142": "bored_quit",
+    "1143": "walls_passed"
+  }
+}

@@ -259,3 +259,13 @@ Suppose about 43% of `normal` players reach Level 3, with 1,500 bots per arm. Th
 9. **Humans send fewer events.** The browser game sends `reached_level_3` and `walls_passed` only. Rage and bored quits are measured for bots only.
 10. **Events are delivered at least once.** Flagsmith's docs note that a retried delivery can store an event twice, which can slightly inflate Count, Sum and Mean metrics. Our goal and guardrails are Occurrence metrics, so they are not affected. `walls_passed` (Mean) could be, which is one reason it is only secondary.
 11. **Flagsmith's SRM check may not run in this setup** (see `docs/FLAGSMITH_SETUP.md`, Part D). So we also check the split ourselves.
+
+## Part 4: Outcome of the live run (added 27 Nov 2026, after the run)
+
+Nothing above was changed after the run. Live run: 4,500 robots, `--seed 2026`, Flagsmith experiment "Level 1 difficulty", results as of 2026-11-27 13:12 UTC (`docs/results/results-final.json`).
+
+- **H1 confirmed.** `practice_first` vs `normal` on `reached_level_3`: 55.2% vs 43.1%, lift +28.0%, 95% credible interval [+18.5%, +37.4%], chance to beat control > 99.9%. Bored quits +0.1 points; rage quits −16.6 points.
+- **H2 confirmed.** `gentle_ramp`: `reached_level_3` lift +3.5% (interval [−5.0%, +11.9%], 79.0%, inconclusive); bored quits 9.5% vs 1.4% (+8.1 points), over the 2-point guardrail.
+- **Health.** A/A check passed. Split check PASS (p = 0.449). Fallbacks 0. 66 bots in the A/A run reached Flagsmith before that experiment was live and were never enrolled; they did not affect any result.
+- **Decision:** ship `practice_first`.
+
