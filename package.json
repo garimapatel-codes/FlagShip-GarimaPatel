@@ -1,0 +1,23 @@
+{
+  "name": "levelup",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Level Up: A/B testing the first level of a tiny browser game with Flagsmith Experimentation, using honest robot players.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "sim": "node bots/sim.mjs",
+    "sim:dry": "node bots/sim.mjs --dry",
+    "test": "node scripts/run-tests.mjs"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@flagsmith/flagsmith": "^12.4.0",
+    "@flagsmith/nodejs": "^9.1.0"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}

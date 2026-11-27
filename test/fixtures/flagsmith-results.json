@@ -1,0 +1,101 @@
+{
+  "_comment": "Made-up numbers, shaped like the real API output: GET environments/<key>/experiments/<id>/results/ (ExperimentResultsSerializer + ResultsSummary), /exposures/ (ExperimentExposuresSerializer + ExposuresSummary) and /experiments/<id>/ (ExperimentDetailSerializer). Metric ids: 11 reached_level_3, 12 rage_quit, 13 bored_quit, 14 walls_passed.",
+  "results": {
+    "results": {
+      "as_of": "2026-11-26T19:40:00Z",
+      "last_error_at": null,
+      "refresh_requested_at": "2026-11-26T19:39:10Z",
+      "is_final": false,
+      "payload": {
+        "srm_p_value": null,
+        "metrics": [
+          {
+            "metric_id": 11,
+            "variants": {
+              "gentle_ramp": { "n": 1503, "sum": 650, "sum_squares": 650 },
+              "control": { "n": 1500, "sum": 645, "sum_squares": 645 },
+              "practice_first": { "n": 1497, "sum": 795, "sum_squares": 795 }
+            },
+            "inference": {
+              "gentle_ramp": { "lift": 0.0058, "ci_low": -0.0703, "ci_high": 0.0819, "chance_to_win": 0.558 },
+              "practice_first": { "lift": 0.2349, "ci_low": 0.1502, "ci_high": 0.3203, "chance_to_win": 0.99999 }
+            },
+            "conversions_timeseries": { "granularity": "hour", "points": [] }
+          },
+          {
+            "metric_id": 12,
+            "variants": {
+              "control": { "n": 1500, "sum": 765, "sum_squares": 765 },
+              "gentle_ramp": { "n": 1503, "sum": 646, "sum_squares": 646 },
+              "practice_first": { "n": 1497, "sum": 569, "sum_squares": 569 }
+            },
+            "inference": {
+              "gentle_ramp": { "lift": -0.1571, "ci_low": -0.2155, "ci_high": -0.0987, "chance_to_win": 0.9999 },
+              "practice_first": { "lift": -0.2549, "ci_low": -0.3141, "ci_high": -0.1957, "chance_to_win": 0.99999 }
+            },
+            "conversions_timeseries": { "granularity": "hour", "points": [] }
+          },
+          {
+            "metric_id": 13,
+            "variants": {
+              "control": { "n": 1500, "sum": 23, "sum_squares": 23 },
+              "gentle_ramp": { "n": 1503, "sum": 125, "sum_squares": 125 },
+              "practice_first": { "n": 1497, "sum": 24, "sum_squares": 24 }
+            },
+            "inference": {
+              "gentle_ramp": { "lift": 4.4245, "ci_low": 2.2, "ci_high": 6.6, "chance_to_win": 0.0001 },
+              "practice_first": { "lift": 0.0456, "ci_low": -0.55, "ci_high": 0.64, "chance_to_win": 0.44 }
+            },
+            "conversions_timeseries": { "granularity": "hour", "points": [] }
+          },
+          {
+            "metric_id": 14,
+            "variants": {
+              "control": { "n": 1500, "sum": 24750, "sum_squares": 520000 },
+              "gentle_ramp": { "n": 1503, "sum": 25100, "sum_squares": 530000 },
+              "practice_first": { "n": 1497, "sum": 28900, "sum_squares": 640000 }
+            },
+            "inference": {
+              "gentle_ramp": { "lift": 0.0121, "ci_low": -0.03, "ci_high": 0.054, "chance_to_win": 0.71 },
+              "practice_first": { "lift": 0.1699, "ci_low": 0.12, "ci_high": 0.22, "chance_to_win": 0.9999 }
+            },
+            "conversions_timeseries": null
+          }
+        ],
+        "exposures_timeseries": { "granularity": "hour", "points": [] }
+      }
+    }
+  },
+  "exposures": {
+    "exposures": {
+      "as_of": "2026-11-26T19:40:00Z",
+      "last_error_at": null,
+      "refresh_requested_at": "2026-11-26T19:39:10Z",
+      "is_final": false,
+      "payload": {
+        "excluded_identities": 0,
+        "timeseries": {
+          "granularity": "hour",
+          "points": [
+            { "bucket": "2026-11-26T19:00:00+00:00", "new_identities": { "control": 1000, "gentle_ramp": 1003, "practice_first": 990 } },
+            { "bucket": "2026-11-26T20:00:00+00:00", "new_identities": { "control": 500, "gentle_ramp": 500, "practice_first": 507 } }
+          ]
+        }
+      }
+    }
+  },
+  "experiment": {
+    "id": 7,
+    "name": "Level 1 difficulty",
+    "status": "running",
+    "feature": { "id": 42, "name": "level1_mode", "type": "MULTIVARIATE", "initial_value": "normal", "multivariate_options": [] },
+    "metrics": [
+      { "id": 1, "metric": 11, "metric_name": "Reached Level 3", "aggregation": "occurrence", "direction": "up", "expected_direction": "increase" },
+      { "id": 2, "metric": 12, "metric_name": "Rage quit", "aggregation": "occurrence", "direction": "down", "expected_direction": "not_increase" },
+      { "id": 3, "metric": 13, "metric_name": "Bored quit", "aggregation": "occurrence", "direction": "down", "expected_direction": "not_increase" },
+      { "id": 4, "metric": 14, "metric_name": "Walls passed (best run)", "aggregation": "mean", "direction": "up", "expected_direction": "increase" }
+    ],
+    "experiment_rollout": { "enabled": true, "rollout_percentage": 100.0, "feature_state_value": { "type": "string", "value": "normal" }, "multivariate_feature_state_values": [] }
+  },
+  "eventById": { "11": "reached_level_3", "12": "rage_quit", "13": "bored_quit", "14": "walls_passed" }
+}

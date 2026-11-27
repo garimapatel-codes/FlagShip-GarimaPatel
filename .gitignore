@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+# Simulation outputs are large and reproducible from the seed; keep the folder only.
+runs/*.json

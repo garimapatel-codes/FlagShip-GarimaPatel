@@ -1,0 +1,50 @@
+/* Clean dark theme shared by the game and the arena. */
+:root {
+  --bg: #0b0f19; --panel: #131a2a; --text: #e8ecf6; --muted: #8b95ad;
+  --ok: #3ddc97; --bad: #ff5d6c; --meh: #ffd166;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.4 system-ui, -apple-system, Segoe UI, sans-serif; }
+a { color: #7aa2ff; text-decoration: none; }
+.top { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 24px; border-bottom: 1px solid #1e2740; }
+.top h1 { margin: 0; font-size: 22px; }
+.sub { font-weight: 400; color: var(--muted); font-size: 14px; margin-left: 8px; }
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+
+/* ---- Game page ---- */
+.stage { display: flex; flex-direction: column; align-items: center; padding: 16px; }
+.hud { display: flex; gap: 20px; align-items: center; margin-bottom: 10px; font-size: 18px; }
+.hud b { font-size: 24px; }
+#game { width: min(400px, 92vw); aspect-ratio: 2 / 3; height: auto; border-radius: 12px; touch-action: none; box-shadow: 0 10px 40px #0008; }
+.message { color: var(--muted); min-height: 1.4em; }
+.badge.mode { background: #12294a; color: #7aa2ff; text-transform: none; }
+.badge { background: #3a2a10; color: var(--meh); padding: 2px 10px; border-radius: 999px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+
+/* ---- Arena page ---- */
+.controls { display: flex; gap: 18px; align-items: center; padding: 10px 24px; flex-wrap: wrap; }
+.controls select, .controls button { background: var(--panel); color: var(--text); border: 1px solid #2a3552; border-radius: 6px; padding: 4px 10px; font: inherit; }
+.file input { color: var(--muted); }
+.lanes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 8px 24px; }
+.lane { background: var(--panel); border-radius: 14px; padding: 14px; border-top: 5px solid var(--c); }
+.lane h2 { margin: 0; color: var(--c); font-size: 22px; font-family: ui-monospace, monospace; }
+.lane p { margin: 2px 0 8px; }
+.counters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 8px 0; }
+.counters div { background: #0e1422; border-radius: 10px; padding: 8px; text-align: center; }
+.counters b { display: block; font-size: 44px; line-height: 1.1; }
+.counters div:nth-child(1) b { color: var(--ok); }
+.counters div:nth-child(2) b { color: var(--bad); }
+.counters div:nth-child(3) b { color: var(--meh); }
+.counters span { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.pop { animation: pop 0.5s ease-out; }
+@keyframes pop { 0% { transform: scale(1.5); } 100% { transform: scale(1); } }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.tile { position: relative; border-radius: 8px; overflow: hidden; border: 2px solid transparent; }
+.tile canvas { display: block; width: 100%; height: auto; }
+.cap { position: absolute; left: 0; right: 0; bottom: 0; font-size: 10px; padding: 2px 4px; background: #0b0f19cc; color: var(--muted); white-space: nowrap; overflow: hidden; }
+.stamp { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; text-align: center; }
+.tile.ok { border-color: var(--ok); } .tile.ok .stamp { color: var(--ok); }
+.tile.bad { border-color: var(--bad); } .tile.bad .stamp { color: var(--bad); }
+.tile.meh { border-color: var(--meh); } .tile.meh .stamp { color: var(--meh); }
+.foot { padding: 12px 24px; font-size: 13px; }
+@media (max-width: 900px) { .lanes { grid-template-columns: 1fr; } }

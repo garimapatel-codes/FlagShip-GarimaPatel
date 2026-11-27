@@ -1,0 +1,29 @@
+# CI: checks every push and pull request. Needs NO secrets and never talks to Flagsmith.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install (exact versions from package-lock.json)
+        run: npm ci
+
+      - name: Unit tests (engine, brain honesty, adapters)
+        run: npm test
+
+      - name: Smoke test - 900 robot players, offline (no network, no keys)
+        run: npm run sim:dry -- --bots 900
+
+      - name: Build the website
+        run: npm run build

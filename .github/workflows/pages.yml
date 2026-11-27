@@ -1,0 +1,61 @@
+# Free hosting: builds the game + Robot Arena with Vite and publishes dist/ to GitHub Pages.
+#
+# One-time setup: repo Settings -> Pages -> Source: "GitHub Actions".
+# The site will be at https://<user>.github.io/<repo>/  (Arena: .../<repo>/arena.html)
+#
+# Flagsmith key (optional):
+#   With no key the game runs OFFLINE: everyone plays "normal" and nothing is sent. That is fine.
+#   To connect it, add a repo variable (Settings -> Secrets and variables -> Actions -> Variables)
+#   named VITE_FLAGSMITH_CLIENT_KEY. This is the CLIENT-side environment key, which is public by
+#   design (it ends up inside the JavaScript every visitor downloads), so a variable is fine.
+#   A secret with the same name also works. NEVER use the server-side key ("ser.") here.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # lets you run it by hand from the Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build with Vite
+        run: npm run build
+        env:
+          # A project site is served from /<repo-name>/, not from /
+          BASE_PATH: /${{ github.event.repository.name }}/
+          # Empty if you didn't set one -> offline mode (see comment at the top)
+          VITE_FLAGSMITH_CLIENT_KEY: ${{ vars.VITE_FLAGSMITH_CLIENT_KEY || secrets.VITE_FLAGSMITH_CLIENT_KEY }}
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
