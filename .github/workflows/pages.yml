@@ -12,10 +12,11 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches: [main]
-  workflow_dispatch:        # lets you run it by hand from the Actions tab
-
+  # Manual only: GitHub Pages is not available while this repo is private (free plan),
+  # so an automatic run on every push would just fail. The playable game is hosted from
+  # the separate public repo "levelup-play". After making this repo public, enable Pages
+  # (Settings -> Pages -> Source: GitHub Actions) and run this from the Actions tab.
+  workflow_dispatch: {}
 permissions:
   contents: read
   pages: write
