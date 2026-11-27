@@ -269,3 +269,13 @@ Nothing above was changed after the run. Live run: 4,500 robots, `--seed 2026`, 
 - **Health.** A/A check passed. Split check PASS (p = 0.449). Fallbacks 0. 66 bots in the A/A run reached Flagsmith before that experiment was live and were never enrolled; they did not affect any result.
 - **Decision:** ship `practice_first`.
 
+
+## Part 5: Exploratory add-on — real human players (written 27 Nov 2026, before any human data)
+
+This is **not** part of the v2 decision. The robot run above is the primary result. We add a small human experiment because real players are the final test of any game change.
+
+- **Where:** a separate Flagsmith experiment, "Level 1 real players", in the Development environment, started only after the A/A experiment there had ended. Production and its official result are untouched.
+- **Who:** friends and classmates who open the shared game link. Each browser gets a random ID stored on that device.
+- **Same flag, same versions, same metrics:** `level1_mode` (normal / gentle_ramp / practice_first); goal `reached_level_3`.
+- **Prediction:** practice_first will raise the share of players who reach Level 3 versus normal. With likely tens of players, not thousands, we **expect the result to be inconclusive** and will report it as it comes, without changing any rule.
+- **Limits:** humans only send `reached_level_3` and `walls_passed` (rage and bored quits are robot-only); a player who clears browser storage counts as a new player.

@@ -6,6 +6,9 @@
 //   node scripts/setup-flagsmith.mjs --aa            same for the A/A environment (uses FLAGSMITH_ENVIRONMENT_KEY_AA)
 //   node scripts/setup-flagsmith.mjs --env-key-var NAME   use the environment key stored in the .env variable NAME
 //   node scripts/setup-flagsmith.mjs --dry-print     print every planned request and send NOTHING (no keys needed)
+//   node scripts/setup-flagsmith.mjs --humans        a SEPARATE experiment for real human players in the
+//                                                    Development environment (key FLAGSMITH_ENVIRONMENT_KEY_AA),
+//                                                    created after the A/A experiment has ended
 //   node scripts/setup-flagsmith.mjs --name "..."    experiment name (default "Level 1 difficulty", or "Level 1 A/A check" for A/A)
 //
 // It is IDEMPOTENT: every step first looks for the thing it wants to create. Running it twice
@@ -49,6 +52,7 @@ export const METRICS = [
   { name: 'Walls passed (best run)', event: EVENTS.WALLS_PASSED, aggregation: 'mean', direction: 'up', expected: 'increase', role: 'secondary' },
 ];
 
+export const HUMAN_HYPOTHESIS = 'Exploratory (real human players, small sample): practice_first will raise the share of players who reach Level 3 versus normal. Expected to be inconclusive at this sample size; the robot run in Production is the primary result (docs/HYPOTHESIS.md, Part 5).';
 export const AA_HYPOTHESIS = 'A/A check: every arm plays the normal Level 1, so no arm should beat control and the split should be even. If one does, the pipeline is biased (docs/HYPOTHESIS.md, run plan step 1).';
 
 // Pull the v2 H1 text out of docs/HYPOTHESIS.md, as one plain line (no markdown).
@@ -137,13 +141,15 @@ export function findActiveExperiment(experiments, featureId) {
 const say = (msg) => console.log(msg);
 
 function settingsFromArgs(args) {
-  const envKeyVar = typeof args['env-key-var'] === 'string' ? args['env-key-var'] : args.aa ? 'FLAGSMITH_ENVIRONMENT_KEY_AA' : 'FLAGSMITH_ENVIRONMENT_KEY';
-  const isAA = /_AA$/.test(envKeyVar);
-  const name = typeof args.name === 'string' ? args.name : isAA ? 'Level 1 A/A check' : 'Level 1 difficulty';
-  return { envKeyVar, isAA, name };
+  const humans = !!args.humans;
+  const envKeyVar = typeof args['env-key-var'] === 'string' ? args['env-key-var'] : (args.aa || humans) ? 'FLAGSMITH_ENVIRONMENT_KEY_AA' : 'FLAGSMITH_ENVIRONMENT_KEY';
+  const isAA = /_AA$/.test(envKeyVar) && !humans;
+  const name = typeof args.name === 'string' ? args.name : humans ? 'Level 1 real players' : isAA ? 'Level 1 A/A check' : 'Level 1 difficulty';
+  return { envKeyVar, isAA, name, humans };
 }
 
-function readHypothesis(isAA) {
+function readHypothesis(isAA, humans = false) {
+  if (humans) return HUMAN_HYPOTHESIS;
   if (isAA) return AA_HYPOTHESIS;
   const md = readFileSync(new URL('../docs/HYPOTHESIS.md', import.meta.url), 'utf8');
   const h1 = extractH1(md);
@@ -253,10 +259,15 @@ async function stepMetrics(cfg) {
   return ids;
 }
 
-async function stepExperiment(cfg, { featureId, variantIds, metricIds, name, hypothesis }) {
+async function stepExperiment(cfg, { featureId, variantIds, metricIds, name, hypothesis, humans = false }) {
   const base = `environments/${cfg.envKey}/experiments/`;
   const all = await listAll(cfg, `${base}?page_size=999`);
   const { active, completed } = findActiveExperiment(all, featureId);
+
+  // --humans: real players must never land in the A/A experiment.
+  if (humans && active && active.name !== name) {
+    throw new ApiError(`Experiment "${active.name}" (id ${active.id}) is still ${active.status} in this environment. End it in the dashboard first (End Experiment -> Roll out control), then run --humans again.`);
+  }
 
   if (active) {
     say(`OK    Experiment "${active.name}" already exists on "${FLAG}" (id ${active.id}, status ${active.status}).`);
@@ -275,7 +286,7 @@ async function stepExperiment(cfg, { featureId, variantIds, metricIds, name, hyp
     return active;
   }
 
-  if (completed.length) {
+  if (completed.length && !humans) {
     throw new ApiError(`"${FLAG}" already has a COMPLETED experiment in this environment (id ${completed.map((e) => e.id).join(', ')}). A finished experiment cannot be restarted, and this script will not create a second one by itself. If you really need a new one, create it in the dashboard.`);
   }
 
@@ -295,21 +306,21 @@ async function stepStart(cfg, experiment) {
 
 export async function main(argv = process.argv.slice(2)) {
   const args = parseArgs(argv);
-  const { envKeyVar, isAA, name } = settingsFromArgs(args);
+  const { envKeyVar, isAA, name, humans } = settingsFromArgs(args);
   const cfg = loadConfig({ envKeyVar, needAdminKey: !args['dry-print'] });
 
   if (args['dry-print']) return printPlan(cfg, { name, isAA, start: !!args.start });
   if (cfg.problems.length) fail(`Settings missing or wrong:\n  - ${cfg.problems.join('\n  - ')}`, cfg);
 
-  say(`Setting up Flagsmith for Level Up: ${isAA ? 'A/A check' : 'Production'} environment (key from ${cfg.envKeySource}).\n`);
+  say(`Setting up Flagsmith for Level Up: ${humans ? 'REAL PLAYERS (Development)' : isAA ? 'A/A check' : 'Production'} environment (key from ${cfg.envKeySource}).\n`);
   try {
-    const hypothesis = readHypothesis(isAA);
+    const hypothesis = readHypothesis(isAA, humans);
     const env = await stepEnvironment(cfg);
     await stepWarehouse(cfg);
     const feature = await stepFeature(cfg, env.project, env.id);
     const variantIds = await stepVariants(cfg, env.project, feature.id);
     const metricIds = await stepMetrics(cfg);
-    const experiment = await stepExperiment(cfg, { featureId: feature.id, variantIds, metricIds, name, hypothesis });
+    const experiment = await stepExperiment(cfg, { featureId: feature.id, variantIds, metricIds, name, hypothesis, humans });
     if (args.start) await stepStart(cfg, experiment);
     else if (experiment.status === 'created') say('\nNOT STARTED (on purpose). When you are ready to run the bots, re-run with --start.');
 
