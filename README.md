@@ -1,5 +1,7 @@
 # Level Up
 
+![Real players](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/garimapatel-codes/FlagShip-GarimaPatel/main/badges/players.json) <sub>real people (devices) who played the live game, updated every 30 min from Flagsmith</sub>
+
 **We A/B test the first level of a tiny browser game with Flagsmith Experimentation. Robot players who don't know which version they're in showed us our first guess was wrong, before a single real player had to suffer it.**
 
 Toggle Wars (WeMakeDevs × Flagsmith) · Track 01: Test Something Real
